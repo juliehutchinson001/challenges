@@ -4,38 +4,31 @@
  * @param {Int[]} `rightArr` smaller partition of the right side of an array
  */
 const mergeFunction = (leftArr, rightArr) => {
-  // [2,8], [5,3]
+  // [2], [8]
   const tempArr = [];
   let lIdx = 0;
   let rIdx = 0;
 
   while (lIdx < leftArr.length && rIdx < rightArr.length) {
-    // 2, 2
     if (leftArr[lIdx] > rightArr[rIdx]) {
-      // 2 > 5 === false
       tempArr.push(rightArr[rIdx]);
       rIdx += 1;
-      console.log(`right array has changed: ${rightArr}`);
     } else {
-      tempArr.push(left.Arr[0]);
+      tempArr.push(leftArr[lIdx]);
       lIdx += 1;
-      console.log(`left array has changed: ${leftArr}`);
     }
   }
 
   while (lIdx < leftArr.length) {
-    tempArr.push(left.Arr[0]);
+    tempArr.push(leftArr[lIdx]);
     lIdx += 1;
-    console.log(`left array has changed: ${leftArr}\n`);
   }
 
   while (rIdx < rightArr.length) {
-    tempArr.push(right.Arr[0]);
+    tempArr.push(rightArr[rIdx]);
     rIdx += 1;
-    console.log(`right array has changed: ${rightArr}\n`);
   }
 
-  console.log(`\n\ntempArr after sorted: ${tempArr}\n\n`);
   return tempArr;
 };
 
@@ -60,4 +53,18 @@ const mergeSort = arr => {
 (() => {
   console.log(mergeSort([2, 8, 5, 3]));
   // console.log(mergeSort([2, 8, 5, 3, 9, 4, 1, 7]));
+  // console.log(mergeSort([8, 10, 12, 11, 1, 7, 3]));
 })();
+
+/**
+ * leftArray = [2, 8]
+ * leftArray = [2] // return
+ * rightArray = [8]
+ * mergeFunction = [2, 8] // return
+ * rightArray = [5, 3]
+ * leftArray = [5]
+ * rightArray = [3]
+ * mergeFunction = [5, 3] // return
+ * mergeFunction = [2, 8, 3, 5] // return
+ *
+ */
