@@ -2,6 +2,7 @@
  * `mergeFunction` takes care of sorting the shorter vertions of the original arr
  * @param {Int[]} `leftArr` smaller partition of the left side of an array
  * @param {Int[]} `rightArr` smaller partition of the right side of an array
+ * @example `Time Complexity` T(n) = 2T(n/2)(n - 1)
  */
 const mergeFunction = (leftArr, rightArr) => {
   // [2], [8]
@@ -43,9 +44,9 @@ const mergeSort = arr => {
   console.log(`Original array: ${arr}\n\n`);
 
   const leftArray = mergeSort(arr.slice(0, Math.round(lengthOfArr / 2)));
-  console.log(`left partitioned arr: ${leftArray} \n`);
+  console.log(`left partitioned arr: ${leftArray}`);
   const rightArray = mergeSort(arr.slice(Math.round(lengthOfArr / 2)));
-  console.log(`right partitioned arr: ${rightArray}\n\n`);
+  console.log(`right partitioned arr: ${rightArray}\n`);
 
   return mergeFunction(leftArray, rightArray); //[2, 8], [5, 3]
 };

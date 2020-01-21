@@ -24,39 +24,22 @@ class CircularQueue {
     return this.read === this.write;
   }
 
-  isPointerWrapping(point, limiter = this.read) {
-    return this.isAtTheEnd(point) && !limiter;
-  }
-
-  isFull(pter, limit = this.read) {
-    return pter < limit - 1;
-  }
-
   enqueue(item) {
     // moves write pointer
     // check if queue is full - the write pointer is behind the read pointer
     // check if q is empty or less than end of array
     // [A, B(W), C, D(R)]
-    // [A, [](W), C(R), D]
+    // [A(R), [], C, D(W)]
 
-    if (!this.isPointerWrapping(this.write) || this.isFull(this.write)) {
+    const isFull = this.write + 1 === this.read;
+    const isPointerWrapping = this.isAtTheEnd(this.write) && this.read;
+
+    if (!isPointerWrapping || isFull) {
       throw new Error("Queue is full");
     } else {
       this.items[this.write] = item;
-      this.write = this.isPointerWrapping(this.write) ? 0 : (this.write += 1);
+      this.write = isPointerWrapping ? 0 : (this.write += 1);
       this.filled += 1;
-    }
-
-    if (!this.isPointerWrapping(this.write) || this.isEmpty()) {
-      this.items[this.write] = item;
-      this.write += 1;
-      this.filled += 1;
-    } else if (this.isFull()) {
-      this.items[this.write] = item;
-      this.filled += 1;
-      this.write = 0;
-    } else {
-      throw new Error("Queue is full");
     }
   }
 
@@ -70,12 +53,16 @@ class CircularQueue {
       throw new Error("Queue is empty"); // [a, (W), , , ,g(R)]
     } else {
       this.read = this.isAtTheEnd(this.read) ? 0 : (this.read += 1);
-      const indexToDequeue = !this.read
-        ? this.queueLength() - 1
-        : this.read - 1;
-
+      const indexToDequeue = !this.read ? this.queueLength() : this.read - 1;
+      const itemDequeued = this.items[indexToDequeue];
       this.items[indexToDequeue] = null;
       this.filled -= 1;
+
+      return itemDequeued;
     }
   }
+}
+
+const testingQueue = () {
+
 }
