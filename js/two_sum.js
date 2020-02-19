@@ -77,6 +77,15 @@ const twoSumWithSortingArray = (arr, target) => {
   const resultArray = [];
   let firstPtr = 0;
   let laterPtr = sortedArray.length - 1;
+
+  if (arr.length < 2) return resultArray;
+
+  if (arr.length === 2) {
+    let totalSum = arr.reduce((accum, currVal) => accum + currVal, 0);
+
+    return totalSum === target ? resultArray : sortedArray;
+  }
+
   //loop: add two pointers and compare with the target;
   while (firstPtr < laterPtr) {
     const totalSum = sortedArray[firstPtr] + sortedArray[laterPtr];
