@@ -77,4 +77,60 @@ const matrix = [
   ['d', 'e'],
   ['g', 'h'],
 ];
-spiralArr(matrix);
+// spiralArr(matrix);
+
+const combinations = [{ a: 1234 }, { b: 1243 }];
+
+/*
+({
+  {1: 6, 2: 6, 3: 6}
+
+  3! = 3x2x1
+
+  Object.keys(cache).map(eachNum => {
+
+  })
+
+  [12 : 2 ], [21 : 2 ], [13 : 3 ], [31 : 1 ], [14 : 2 ], [41 : 2 ], [23 : 3 ], [32 : 1 ], [24 : 3 ], [42 : 1 ], [34 : 2 ], [43 : 2 ]
+
+})
+arr = 12345
+target = 2;
+
+213
+231
+
+312
+321
+
+*/
+/**
+ *
+ * @param {Array[number]} arr | the array to traverse
+ * @param {*} target
+ * @param {*} leftPt
+ * @param {*} rightPt
+ */
+const binarySearchRecursive = (arr, target, leftPt, rightPt) => {
+  const middle = Math.floor((leftPt + rightPt) / 2);
+
+  if (leftPt > rightPt) return -1;
+
+  if (target === arr[middle]) {
+    return middle;
+  } else if (target > arr[middle]) {
+    return binarySearchRecursive(arr, target, middle + 1, rightPt);
+  } else {
+    return binarySearchRecursive(arr, target, leftPt, middle - 1);
+  }
+};
+
+const main = (arr, target) => {
+  const left = 0;
+  const right = arr.length - 1;
+  const indexOfTarget = binarySearchRecursive(arr, target, left, right);
+
+  return indexOfTarget;
+};
+
+console.log(main([10], 10));
